@@ -32,6 +32,12 @@ public class CAI3 {
 					
 					totalCorrect += isAnswerCorrect(response, answer);
 					
+					if (isAnswerCorrect(response, answer) == 1) {
+						displayCorrectResponse();
+					} else {
+						displayIncorrectResponse();
+					}
+					
 					if (i == NUMOFPROBLEMS-1) {
 						displayCompletionMessage(totalCorrect);
 					}
