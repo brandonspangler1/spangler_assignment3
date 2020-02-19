@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class CAI3 {
 	
 	private static final int EXCLUSIVEBOUND = 10;
+	private static final int NUMCHOICESBOUND = 5;
 	private static final int NUMOFPROBLEMS = 10;
 	
 	static Scanner kb = new Scanner(System.in);
@@ -12,10 +13,10 @@ public class CAI3 {
 		
 		SecureRandom random = new SecureRandom();
 		
+		double totalCorrect = 0.0;
 		
 		while (true) {
 			
-			double totalCorrect = 10.0;
 			
 			if (menu() == 1) {
 				for (int i = 0; i < NUMOFPROBLEMS; i++) {
@@ -30,15 +31,12 @@ public class CAI3 {
 					int response = readResponse();
 					
 					totalCorrect += isAnswerCorrect(response, answer);
+					
+					if (i == NUMOFPROBLEMS-1) {
+						displayCompletionMessage(totalCorrect);
+					}
 				}
 			}
-			
-			if (totalCorrect/NUMOFPROBLEMS > 0.75) {
-				System.out.println(displayCorrectResponse());
-			} else {
-				System.out.println(displayIncorrectResponse());
-			}
-			
 		}
 	}
 	
@@ -61,18 +59,72 @@ public class CAI3 {
 	
 	private static int isAnswerCorrect(int response, int answer) {
 		if (response == answer) {
-			return 0;
+			return 1;
 		} else {
-			return -1;
+			return 0;
 		}
 	}
 	
-	private static String displayCorrectResponse() {
-		return "Congratulations, you are ready to go to the next level!";
+	private static void displayCorrectResponse() {
+		
+		SecureRandom random = new SecureRandom();
+		
+		int response = 0;
+		
+		while (response == 0) {
+			response = random.nextInt(NUMCHOICESBOUND);
+		}
+		
+		switch (response) {
+			case 1:
+				System.out.println("Very Good!");
+				break;
+			case 2:
+				System.out.println("Excellent!");
+				break;
+			case 3:
+				System.out.println("Keep up the good work!");
+				break;
+			case 4:
+				System.out.println("Nice work!");
+				break;
+		}
 	}
 	
-	private static String displayIncorrectResponse() {
-		return "Please ask your teacher for extra help.";
+	private static void displayIncorrectResponse() {
+		SecureRandom random = new SecureRandom();
+		
+		int response = 0;
+		
+		while (response == 0) {
+			response = random.nextInt(NUMCHOICESBOUND);
+		}
+		
+		switch (response) {
+			case 1:
+				System.out.println("No. Pleae try again.");
+				break;
+			case 2:
+				System.out.println("Wrong. Try once more.");
+				break;
+			case 3:
+				System.out.println("Don't give up!");
+				break;
+			case 4:
+				System.out.println("No. Keep trying.");
+				break;
+		}
+	}
+	
+	private static void displayCompletionMessage(double totalCorrect) {
+		
+		
+			if (totalCorrect/NUMOFPROBLEMS > 0.75) {
+				System.out.println("Congratulations, you are ready to go to the next level!");
+			} else {
+				System.out.println("Please ask your teacher for extra help.");
+			}
+		
 	}
 	
 	private static int menu() {
