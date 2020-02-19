@@ -126,11 +126,21 @@ public class CAI4 {
 	
 	private static void displayCompletionMessage(double totalCorrect) {
 		
+		double score;
+		
+		if (totalCorrect/NUMOFPROBLEMS == 1) {
+			score = 10;
+		} else {
+			score = totalCorrect/NUMOFPROBLEMS;
+		}
+		
 		
 		if (totalCorrect/NUMOFPROBLEMS > 0.75) {
 			System.out.println("Congratulations, you are ready to go to the next level!");
+			System.out.println("Your score was: " + score);
 		} else {
 			System.out.println("Please ask your teacher for extra help.");
+			System.out.println("Your score was: " + score);
 		}
 	
 }
