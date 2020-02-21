@@ -24,7 +24,7 @@ public class CAI5 {
 			int problemType = readProblemType();
 			
 			if (problemType == 4 || problemType == 5) {
-				System.out.println("Round to the nearset whole number!");
+				System.out.println("Round to the tenth!");
 			}
 			
 			for (int i = 0; i < NUMOFPROBLEMS; i++) {
@@ -43,9 +43,9 @@ public class CAI5 {
 					e1.printStackTrace();
 				}
 				
-				int answer = askQuestion(firstNum, secondNum, problemType);
+				double answer = askQuestion(firstNum, secondNum, problemType);
 				
-				int response = readResponse();
+				double response = readResponse();
 				
 				totalCorrect += isAnswerCorrect(response, answer);
 				
@@ -63,7 +63,7 @@ public class CAI5 {
 		}
 	}
 	
-	private static int askQuestion(int firstNum, int secondNum, int problemType) {
+	private static double askQuestion(int firstNum, int secondNum, int problemType) {
 		switch (problemType) {
 			case 1:
 				System.out.println("How much is " + firstNum + " plus " + secondNum + "?");
@@ -76,7 +76,7 @@ public class CAI5 {
 				return firstNum - secondNum;
 			case 4:
 				System.out.println("How much is " + firstNum + " divided by " + secondNum + "?");
-				return (int) Math.round(((double) firstNum)/secondNum);
+				return  firstNum/secondNum;
 			case 5:
 				switch (random.nextInt(4)) {
 					case 0:
@@ -90,18 +90,18 @@ public class CAI5 {
 						return firstNum-secondNum;
 					case 3:
 						System.out.println("How much is " + firstNum + " divided by " + secondNum + "?");
-						return (int) Math.round(((double) firstNum)/secondNum);
+						return firstNum/secondNum;
 					}
 			default: 
 				return -9999;
 		}
 	}
 	
-	private static int readResponse() {
+	private static double readResponse() {
 		while(true) {
 			try {
 				String answer = kb.nextLine();
-				int number = Integer.parseInt(answer);
+				double number = Double.parseDouble(answer);
 				return number;
 			} catch (Exception e) {
 				System.out.println("Please enter a number!");
@@ -110,8 +110,13 @@ public class CAI5 {
 		}
 	}
 	
-	private static int isAnswerCorrect(int response, int answer) {
-		if (response == answer) {
+	private static int isAnswerCorrect(double response, double answer) {
+		
+		if (response/answer == 1 || answer == 0) {
+				return 1;
+		}
+		
+		if ((response - answer) > 0.001) {
 			return 1;
 		} else {
 			return 0;
