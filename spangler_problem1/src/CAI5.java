@@ -7,7 +7,7 @@ public class CAI5 {
 	private static final int DIFFLEVEL2 = 100;
 	private static final int DIFFLEVEL3 = 1000;
 	private static final int DIFFLEVEL4 = 10000;
-	private static final int NUMCHOICESBOUND = 5;
+	private static final int NUMCHOICESBOUND = 4;
 	private static final int NUMOFPROBLEMS = 10;
 	
 	static SecureRandom random = new SecureRandom();
@@ -23,9 +23,6 @@ public class CAI5 {
 			int diffLevel = menu();
 			int problemType = readProblemType();
 			
-			if (problemType == 4 || problemType == 5) {
-				System.out.println("Round to the tenth!");
-			}
 			
 			for (int i = 0; i < NUMOFPROBLEMS; i++) {
 				
@@ -63,7 +60,7 @@ public class CAI5 {
 		}
 	}
 	
-	private static double askQuestion(int firstNum, int secondNum, int problemType) {
+	private static double askQuestion(double firstNum, double secondNum, int problemType) {
 		switch (problemType) {
 			case 1:
 				System.out.println("How much is " + firstNum + " plus " + secondNum + "?");
@@ -112,60 +109,55 @@ public class CAI5 {
 	
 	private static int isAnswerCorrect(double response, double answer) {
 		
-		if (response/answer == 1 || answer == 0) {
-				return 1;
-		}
-		
-		if ((response - answer) > 0.001) {
+		if (response/answer == 1) {
+			return 1;
+		} else if (answer == 0 && response == 0) {
+			return 1;
+		} else if ((response - answer) < 0.01) {
 			return 1;
 		} else {
 			return 0;
 		}
+		
 	}
 	
 	private static void displayCorrectResponse() {
 		
-		int response = 0;
 		
-		while (response == 0) {
-			response = random.nextInt(NUMCHOICESBOUND);
-		}
+		int response = random.nextInt(NUMCHOICESBOUND);
 		
 		switch (response) {
-			case 1:
+			case 0:
 				System.out.println("Very Good!");
 				break;
-			case 2:
+			case 1:
 				System.out.println("Excellent!");
 				break;
-			case 3:
+			case 2:
 				System.out.println("Keep up the good work!");
 				break;
-			case 4:
+			case 3:
 				System.out.println("Nice work!");
 				break;
 		}
 	}
 	
 	private static void displayIncorrectResponse() {
-		
-		int response = 0;
-		
-		while (response == 0) {
-			response = random.nextInt(NUMCHOICESBOUND);
-		}
+
+		int response = random.nextInt(NUMCHOICESBOUND);
+
 		
 		switch (response) {
-			case 1:
+			case 0:
 				System.out.println("No. Pleae try again.");
 				break;
-			case 2:
+			case 1:
 				System.out.println("Wrong. Try once more.");
 				break;
-			case 3:
+			case 2:
 				System.out.println("Don't give up!");
 				break;
-			case 4:
+			case 3:
 				System.out.println("No. Keep trying.");
 				break;
 		}
